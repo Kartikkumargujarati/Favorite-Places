@@ -7,6 +7,7 @@
 //
 
 import UIKit
+var allLocations = [Dictionary<String, String>()]
 
 class TableViewController: UITableViewController {
 
@@ -18,6 +19,15 @@ class TableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        //print(allLocations)
+        if allLocations.count == 1 {
+            allLocations.remove(at: 0)
+            allLocations.append(["name": "Apple Campus", "lat": "37.3320", "long":"-122.0295"])
+
+        }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,14 +44,15 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return allLocations.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-
-        cell.textLabel?.text = "Test"
+        //print(allLocations[0]["name"])
+        let location = allLocations[indexPath.row]
+        cell.textLabel?.text = location["name"]
         return cell
     }
     

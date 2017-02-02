@@ -45,9 +45,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
                     let zip = address["ZIP"] as! String
                     let country = address["Country"] as! String
                      title = "\(name) \(street)"
-
                 }
+                allLocations.append(["name": title, "lat": "\(newCord.latitude)", "long": "\(newCord.longitude)"])
                 
+                print("From ViewC \(allLocations)")
                 var annot = MKPointAnnotation()
                 annot.coordinate = newCord
                 if title == ""{
