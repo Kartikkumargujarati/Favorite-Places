@@ -14,6 +14,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
 
     @IBOutlet weak var map: MKMapView!
     var locationManager = CLLocationManager()
+    @IBAction func locateMe(_ sender: AnyObject) {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        self.map.showsUserLocation = true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -70,7 +77,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
                 }
                
                 allLocations.append(["name": title, "lat": "\(newCord.latitude)", "long": "\(newCord.longitude)"])
-                
+                UserDefaults.standard.set(allLocations, forKey: "allLocations")
+
                 var annot = MKPointAnnotation()
                 annot.coordinate = newCord
                 if title == ""{

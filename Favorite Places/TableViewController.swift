@@ -13,7 +13,10 @@ class TableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if UserDefaults.standard.dictionary(forKey: "allLocations") != nil{
+            allLocations = UserDefaults.standard.dictionary(forKey: "allLocations") as! [Dictionary<String, String>]
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -28,6 +31,14 @@ class TableViewController: UITableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
+
+    }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            allLocations.remove(at: indexPath.row)
+            UserDefaults.standard.set(allLocations, forKey: "allLocations")
+            self.tableView.reloadData()
+        }
 
     }
     override func didReceiveMemoryWarning() {
