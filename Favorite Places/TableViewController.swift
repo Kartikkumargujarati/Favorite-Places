@@ -8,7 +8,7 @@
 
 import UIKit
 var allLocations = [Dictionary<String, String>()]
-
+var currentRow = -1
 class TableViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -26,10 +26,10 @@ class TableViewController: UITableViewController {
 
         }
     }
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
-    }
 
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -55,7 +55,10 @@ class TableViewController: UITableViewController {
         cell.textLabel?.text = location["name"]
         return cell
     }
-    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        currentRow = indexPath.row
+        return indexPath
+    }
 
     /*
     // Override to support conditional editing of the table view.
